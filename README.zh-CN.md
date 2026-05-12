@@ -51,11 +51,19 @@
 
 ### 安装 CodexPad Frame Decoder 库
 
-1. **下载库文件**
+1. **打开 Arduino IDE 库管理器**
+   - 菜单栏：**工具** → **管理库...**
+   - 快捷键：`Ctrl+Shift+I`（Windows/Linux）或 `Cmd+Shift+I`（Mac）
 
-    **下载链接**：[codex_pad_frame_decoder_arduino_lib-x.x.x.zip](../../../codex_pad_frame_decoder_arduino_lib/archive/refs/tags/v1.0.0.zip)
+2. **搜索并安装**
+   - 在搜索框中输入：`CodexPadFrameDecoder`
+   - 找到 CodexPadFrameDecoder 库
+   - **确保在下拉菜单中选择最新版本**
+   - 点击 **安装** 按钮
 
-2. 在 Arduino IDE 中，通过**项目** → **加载库** → **添加 .ZIP 库...** 来安装此文件。
+    ![在库管理中搜索 CodexPadFrameDecoder](assets/images/zh-CN/install_codexpad_frame_decoder_library.png)
+
+    > **📌 注意：** 截图仅供参考。请务必安装最新可用版本。
 
 ## 示例说明
 
@@ -67,13 +75,13 @@
 
 - **示例说明**：通过Bluetooth Device Address与CodexPad蓝牙连接，实时查询、打印其所有按钮状态与摇杆数值。
 
-- **BLE-UNO / NL-16 蓝牙模块示例位置**：在 Arduino IDE 中，通过 **文件** → **示例** → **CodexPad_Frame_Decoder** → **basic_polling** → **ble_uno_or_nl_16_module** 找到该示例。
+- **BLE-UNO / NL-16 蓝牙模块示例位置**：在 Arduino IDE 中，通过 **文件** → **示例** → **CodexPadFrameDecoder** → **basic_polling** → **ble_uno_or_nl_16_module** 找到该示例。
 
 ### 输入状态检测示例 (`inputs_detection`)
 
 - **示例说明**：通过Bluetooth Device Address与CodexPad蓝牙连接，检测到按钮状态与摇杆数值变化后打印。
 
-- **BLE-UNO / NL-16 蓝牙模块示例位置**：在 Arduino IDE 中，通过 **文件** → **示例** → **CodexPad_Frame_Decoder** → **inputs_detection** → **ble_uno_or_nl_16_module** 找到该示例。
+- **BLE-UNO / NL-16 蓝牙模块示例位置**：在 Arduino IDE 中，通过 **文件** → **示例** → **CodexPadFrameDecoder** → **inputs_detection** → **ble_uno_or_nl_16_module** 找到该示例。
 
 ## API说明
 
