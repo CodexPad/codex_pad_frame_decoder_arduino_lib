@@ -49,13 +49,21 @@ Please refer to the method provided in the product manual to obtain your gamepad
 
 - Power on the gamepad. After powering on, the gamepad will automatically enter a **connection standby state** where it is discoverable via Bluetooth. At this time, the gamepad's indicator light should be **slowly flashing (approximately once per second)**.
 
-### Installing the CodexPad Frame Decoder Library
+### Installing CodexPad Frame Decoder Library
 
-1. **Download the library file**
+1. **Open Arduino IDE Library Manager**
+   - Menu: **Tools** → **Manage Libraries...**
+   - Keyboard shortcut: `Ctrl+Shift+I` (Windows/Linux) or `Cmd+Shift+I` (Mac)
 
-    **Download Link**: [codex_pad_frame_decoder_arduino_lib-x.x.x.zip](../../../codex_pad_frame_decoder_arduino_lib/archive/refs/tags/v1.0.0.zip)
+2. **Search and Install**
+   - In the search box, type: `CodexPadFrameDecoder`
+   - Locate the CodexPadFrameDecoder library
+   - **Ensure the latest version is selected** in the version dropdown
+   - Click the **INSTALL** button
 
-2. In the Arduino IDE, install this file via **Sketch** → **Include Library** → **Add .ZIP Library...**
+   ![Search for CodexPadFrameDecoder in Library Manager](assets/images/en/install_codexpad_frame_decoder_library.png)
+
+   > **📌 Note:** The screenshot is for reference only. Please make sure to install the latest available version.
 
 ## Example Descriptions
 

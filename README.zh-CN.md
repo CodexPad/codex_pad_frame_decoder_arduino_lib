@@ -51,11 +51,19 @@
 
 ### 安装 CodexPad Frame Decoder 库
 
-1. **下载库文件**
+1. **打开 Arduino IDE 库管理器**
+   - 菜单栏：**工具** → **管理库...**
+   - 快捷键：`Ctrl+Shift+I`（Windows/Linux）或 `Cmd+Shift+I`（Mac）
 
-    **下载链接**：[codex_pad_frame_decoder_arduino_lib-x.x.x.zip](../../../codex_pad_frame_decoder_arduino_lib/archive/refs/tags/v1.0.0.zip)
+2. **搜索并安装**
+   - 在搜索框中输入：`CodexPadFrameDecoder`
+   - 找到 CodexPadFrameDecoder 库
+   - **确保在下拉菜单中选择最新版本**
+   - 点击 **安装** 按钮
 
-2. 在 Arduino IDE 中，通过**项目** → **加载库** → **添加 .ZIP 库...** 来安装此文件。
+    ![在库管理中搜索 CodexPadFrameDecoder](assets/images/zh-CN/install_codexpad_frame_decoder_library.png)
+
+    > **📌 注意：** 截图仅供参考。请务必安装最新可用版本。
 
 ## 示例说明
 
