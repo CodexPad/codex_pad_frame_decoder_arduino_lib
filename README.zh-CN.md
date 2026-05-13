@@ -6,6 +6,8 @@
 
 本库为 **CodexPad** 系列手柄在 **Arduino** 平台上的**数据帧解析器**。它通过 `Stream` 对象接收原始数据字节流，解析出数据协议帧，并提取出按键状态与摇杆轴值。适用于通过串口或蓝牙透传模块接收手柄数据的场景。
 
+> **💡 关于 `Stream`**：`Stream` 是 Arduino 核心库中用于数据流通信的基类。它定义了 Arduino 中的读取和解析功能，为所有的串口通信提供了统一的接口。常见的 `HardwareSerial`（硬件串口类）和 `SoftwareSerial`（软件串口类）都继承自 `Stream`，其中 `Serial` 是 `HardwareSerial` 类的一个预定义实例。本库通过 `Stream` 接口接收数据，因此不依赖特定的硬件通信方式，您可以将任何实现了 `Stream` 接口的对象（如 `Serial`、`SoftwareSerial` 等）传入本库。关于 `Stream` 的详细信息详见 [Arduino Stream 官方文档](https://docs.arduino.cc/language-reference/en/functions/communication/stream/)。
+
 **库本身不涉及蓝牙连接**，只负责对手柄数据协议帧的校验与解析。如何建立蓝牙连接（如发送 AT 指令）请参考具体示例中的 `Connect()` 函数。
 
 关于 CodexPad 产品的详细信息，请查阅以下产品文档。
@@ -18,6 +20,27 @@
 ## 支持的平台
 
 本库仅依赖 `Stream` 接口，通过 `Stream` 接收 CodexPad 手柄的数据协议帧进行解析，并不关心蓝牙连接过程，不与特定硬件绑定，适用于通过串口外接蓝牙透传模块（如 BLE-UNO、NL-16等）或任意支持  `Stream`  输入的 Arduino 兼容平台。
+
+### 支持的蓝牙模块
+
+| 支持的蓝牙模块 |
+| :------------ |
+| NL-16 (V1.2+) |
+| HC-05         |
+| JDY-08        |
+| 其他支持 AT 指令的蓝牙透传模块 |
+
+### 支持的硬件平台
+
+| 支持的硬件平台 |
+| :--- |
+| Arduino UNO  |
+| Arduino Nano |
+| Arduino Mega 2560 |
+| BLE-UNO |
+| 其他兼容 Arduino 的平台 |
+
+> **📌 注意**：本库不限于以上平台，任何支持 `Stream` 接口的 Arduino 兼容板卡均可使用。
 
 ## 特性
 
@@ -71,6 +94,57 @@
 
 每个功能示例下会包含不同蓝牙模块的专属子目录，模块专属示例中的 `Connect()` 函数实现不同，保证蓝牙连接正确；解析部分则统一使用本库的 `CodexPadFrameDecoder` 类。您可根据使用的蓝牙模块，自行选择对应的蓝牙模块示例。
 
+### 硬件接线
+
+运行示例前，请根据您所使用的蓝牙模块完成硬件接线。
+
+#### 使用 BLE-UNO 开发板
+
+BLE-UNO是基于官方标准Arduino uno V3.0主板上集成低功耗蓝牙芯片而开发一款具备无线蓝牙功能的开发板，已集成蓝牙芯片，**无需为蓝牙模块额外接线**。但为方便查看程序输出的调试信息，建议按以下方式引出调试串口：
+
+| BLE-UNO | USB转TTL模块引脚 |
+| :------ | :--- |
+| 5       | RXD |
+| 6       | TXD |
+| VCC     | 5V |
+| GND     | GND |
+
+> **📌 提示**：上表中的引脚号 (5, 6) 为示例代码中的默认配置。如果您在代码中修改了调试串口引脚，请以您代码中定义的 `kDebugSerialRxPin` 和 `kDebugSerialTxPin` 常量为准。
+
+![BLE-UNO 调试串口接线图](assets/images/zh-CN/wiring_ble_uno_debug.png)
+
+#### 使用 NL-16、HC-05 等独立蓝牙透传模块
+
+像NL-16、HC-05像这些蓝牙模块，需要通过串口与开发板配合连接使用。使用NL-16蓝牙模块时，需使用 V1.2 及以上版本的NL-16蓝牙模块。
+
+以下为典型接法（以 Arduino UNO 开发板使用 NL-16蓝牙模块为例）：
+
+**蓝牙模块接线**
+
+| 模块引脚     | Arduino 引脚 |
+| :---------- | :----------- |
+| +5V         | 5V           |
+| GND         | GND          |
+| TXD         | RX0          |
+| RXD         | TX0          |
+| STAT/D-RST  | RESET        |
+
+注意：上表是NL-16蓝牙模块在Arduino uno 开发板上的接线示例，不同蓝牙模块的接线略有不同，请根据蓝牙模块实际的接口进行接线。
+
+**调试串口接线**
+
+| Arduino 引脚 | USB转TTL模块引脚 |
+| :----------- | :-------------- |
+| 5            | RXD             |
+| 6            | TXD             |
+| 3.3V         | VCC             |
+| GND          | GND             |
+
+> **📌 提示**：上表中的引脚号 (5, 6) 为示例代码中的默认配置。如果您在代码中修改了调试串口引脚，请以您代码中定义的 `kDebugSerialRxPin` 和 `kDebugSerialTxPin` 常量为准。
+
+![蓝牙模块接线图](assets/images/zh-CN/wireless_downloard.png)
+![串口调试接线图](assets/images/zh-CN/wiring_uno_nl16.png)
+
 ### 基础轮询示例 (`basic_polling`)
 
 - **示例说明**：通过Bluetooth Device Address与CodexPad蓝牙连接，实时查询、打印其所有按钮状态与摇杆数值。
@@ -82,6 +156,21 @@
 - **示例说明**：通过Bluetooth Device Address与CodexPad蓝牙连接，检测到按钮状态与摇杆数值变化后打印。
 
 - **BLE-UNO / NL-16 蓝牙模块示例位置**：在 Arduino IDE 中，通过 **文件** → **示例** → **CodexPadFrameDecoder** → **inputs_detection** → **ble_uno_or_nl_16_module** 找到该示例。
+
+### 如何查看调试信息
+
+示例程序运行后，所有手柄的按键状态和摇杆数值都会通过**调试串口**输出。由于示例中默认的硬件串口（D0/D1）已被蓝牙模块占用，无法通过此串口进行查看调试信息，需要通过调试串口查看输出。请按照以下步骤操作：
+
+1. 准备一个 **USB转TTL模块**，按照硬件接线的说明进行接线，其中**USB转TTL模块**的TXD引脚接到IO 6，RXD引脚则接到IO 5。
+2. 将 USB转TTL模块插入电脑的 USB 口，此时系统会识别出一个新的串口（COM 口）。
+3. 打开任意一款串口调试工具。
+4. 选择 USB转TTL模块对应的串口（COM 口），并设置波特率为 **115200**，数据位 8，停止位 1，校验位 None。
+5. 点击“打开串口”，即可实时查看调试信息。
+
+> **📌 提示**：
+>
+>1. 以上调试串口的引脚号（5/6）和波特率（115200）为示例代码的默认值。如果您在代码中修改了调试串口的引脚或波特率中的值，请以您代码中的实际配置为准。
+>2. 连接成功后，在调试串口中，您会先看到 `Connected` 的提示。当您按下手柄按键或推动摇杆时，对应的状态变化会立即打印出来，例如 `Button Cross(A): pressed`、`L(X:128, Y:0)` 等
 
 ## API说明
 
