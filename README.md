@@ -1,179 +1,220 @@
-# CodexPad Frame Decoder Arduino Lib
+# CodexPadFrameDecoder Arduino lib
 
-[中文](README.zh-CN.md)
+[中文版](README.zh-CN.md)
 
 ## Overview
 
-This library is a **data frame parser** for the **CodexPad** series gamepads on the **Arduino** platform. It receives raw data byte streams via a `Stream` object, parses the protocol frames, and extracts button states and joystick axis values. It is suitable for scenarios where gamepad data is received through a serial or Bluetooth transparent transmission module.
+This library is a **data frame parser** for the **CodexPad** series controllers on the **Arduino** platform. It receives raw data byte streams through a `Stream` object, parses the data protocol frames, and extracts button states and joystick axis values. Suitable for **scenarios where CodexPad controller data is received via a serial-to-Bluetooth transparent transmission module**.
 
-> **💡 About `Stream`**: `Stream` is the base class for data stream communication in the Arduino core library. It defines the read and parse capabilities in Arduino and provides a unified interface for all serial communication. Common `HardwareSerial` and `SoftwareSerial` classes inherit from `Stream`, where `Serial` is a predefined instance of `HardwareSerial`. Because this library receives data through the `Stream` interface, it does not depend on a specific hardware communication method; you can pass any object that implements the `Stream` interface (e.g., `Serial`, `SoftwareSerial`) to the library. For more details about `Stream`, refer to the [Arduino Stream official documentation](https://docs.arduino.cc/language-reference/en/functions/communication/stream/).
+This library focuses on data frame validation and parsing, and is not responsible for establishing Bluetooth connections. For how to establish a Bluetooth connection (e.g., sending AT commands), please refer to the `Connect()` function in the specific examples.
 
-**The library itself does not handle Bluetooth connections**; it only validates and parses the gamepad data protocol frames. For instructions on how to establish a Bluetooth connection (e.g., by sending AT commands), please refer to the `Connect()` function in the specific examples.
+> **💡 About `Stream`**: `Stream` is a base class in the Arduino core library for data stream communication. It defines the reading and parsing functionality in Arduino and provides a unified interface for all serial communications. Common classes like `HardwareSerial` and `SoftwareSerial` inherit from `Stream`, and `Serial` is a predefined instance of `HardwareSerial`. For more details on `Stream`, see the [Arduino Stream official documentation](https://docs.arduino.cc/language-reference/en/functions/communication/stream/).
 
-For detailed information about CodexPad products, please check the following product documentation.
+For detailed information about CodexPad products, please refer to the following product documentation.
 
-| CodexPad型号 | 详情 |
+| CodexPad Model | Details |
 | :--- | :--- |
-| CodexPad-C10 | [产品详情](../../../codex_pad_c10/blob/main/README.zh-CN.md#codexpad-c10) |
-| CodexPad-S10 | [产品详情](../../../codex_pad_s10/blob/main/README.zh-CN.md#codexpad-s10) |
+| CodexPad-C10 | [Product Details](../../../codex_pad_c10/blob/main/README.md#codexpad-c10) |
+| CodexPad-S10 | [Product Details](../../../codex_pad_s10/blob/main/README.md#codexpad-s10) |
 
 ## Supported Platforms
 
-This library and its examples are intended for scenarios where **CodexPad gamepad data is received via a serial Bluetooth transparent transmission module**. The following two connection approaches are supported:
+This library and the example code are suitable for **scenarios where CodexPad controller data is received via a serial-to-Bluetooth transparent transmission module**. The following two connection options are supported:
 
-- **Development board with integrated Bluetooth transparent transmission module (no external module required)**
+- Development board with integrated Bluetooth transparent transmission module (no external Bluetooth module required)
 
-    Suitable for development boards that come with a **built-in Bluetooth transparent transmission module**. The main controller communicates with the Bluetooth chip through a serial port, working in the same way as a development board paired with an external Bluetooth module (e.g., Arduino + NL-16).
+    Suitable for development boards that **integrate a Bluetooth transparent transmission module** on-board. The main control communicates with the Bluetooth chip via serial, working the same way as a development board + external Bluetooth transparent transmission module (e.g., Arduino + NL-16).
 
-    | Supported Development Board |
-    | :-------------------------- |
-    | BLE-UNO                     |
+    | Compatible Development Boards |
+    | :-------- |
+    | BLE-UNO   |
 
-- **Development board with an external Bluetooth transparent transmission module**
+- Development board with external Bluetooth transparent transmission module
 
-    Suitable for development boards that **do not have an integrated Bluetooth transparent transmission module** (e.g., Arduino UNO, Nano, Mega 2560), where an external serial Bluetooth transparent transmission module (e.g., NL-16) is used to receive and parse the data frames from the CodexPad gamepad.
+    Suitable for development boards that **do not have an integrated Bluetooth transparent transmission module** (e.g., Arduino UNO, Nano). An external serial Bluetooth transparent transmission module (e.g., NL-16) is required to use the CodexPad controller.
 
-    **Supported External Bluetooth Transparent Transmission Modules**
+    **Supported external Bluetooth transparent transmission modules**
 
     | Bluetooth Transparent Transmission Module |
-    | :---------------------------------------- |
-    | NL-16 (V1.2+)                             |
+    | :------------ |
+    | NL-16 (V1.2+) |
 
-    **Supported Hardware Platforms**
+    **Supported hardware platforms**
 
-    | Supported Hardware Platform |
-    | :-------------------------- |
-    | Arduino UNO                 |
-    | Arduino Nano                |
-    | Arduino Mega 2560           |
+    | Supported Hardware Platforms |
+    | :--- |
+    | Arduino UNO  |
+    | Arduino Nano |
 
 ## Features
 
-- **Real-time button event detection**: All button input states can be read in real time, distinguishing between **press**, **release**, and **long press** events.
+- **Real-time button event detection**: Real-time reading of all button input states, distinguishing between **press**, **release**, and **long press** events.
 
-- **High-precision joystick data**: Obtain analog values from both the left and right joystick X and Y axes, ranging from 0 to 255, for precise control input.
+- **High-precision joystick data**: Obtain analog values of the left and right joystick X and Y axes, ranging from 0 to 255, providing precise control input.
 
 ## Usage
 
-### Prerequisites
+### Preparation
 
-Before programming, complete the following preparations to ensure a smooth development process.
+Before starting programming, please complete the following preparations to ensure a smooth development process.
 
 #### Familiarize yourself with product documentation
 
-- Thoroughly read the datasheet of the Bluetooth module you are using (e.g., NL-16 Bluetooth module) to understand how to use it, how to connect it, and the corresponding AT commands.
-- Thoroughly read the CodexPad product manual to fully understand the hardware features, button and joystick layout, function definitions, LED indicators, power on/off operations, and other basic information.
+- Carefully read the data sheet of the Bluetooth module you are using (e.g., NL-16 Bluetooth module) to become familiar with how to use it, how to connect, and the basic AT commands.
 
-#### Obtain and record the gamepad's **Bluetooth Device Address (BD_ADDR)**
+- Carefully read the CodexPad product manual to fully understand the hardware features, familiarize yourself with the button/joystick layout, function definitions, indicator light states, power on/off operations, and other basic information.
 
-> **⚠️ Important**: The examples in this library connect via **Bluetooth Device Address (BD_ADDR)**. **You must explicitly specify your gamepad's Bluetooth Device Address (BD_ADDR) in the code during programming.**
+#### Obtain and record the controller's **Bluetooth Device Address (BD_ADDR)**
 
-Please refer to the method provided in the product manual to obtain your gamepad's **Bluetooth Device Address (BD_ADDR)**. Its format is typically `"0C:3D:5E:9D:80:99"` (consisting of characters 0-9 and A-F, with colons as separators). Keep a record of this address; you will need to enter your own gamepad's actual **Bluetooth Device Address (BD_ADDR)** in the code later.
+> **⚠️ Important Note**: The examples in this library connect via **Bluetooth Device Address (BD_ADDR)**. **When programming, you must explicitly specify your controller's Bluetooth Device Address (BD_ADDR) in the code.**
 
-#### Power on the gamepad and enter standby mode
+Please refer to the product manual for the method to obtain your controller's **Bluetooth Device Address (BD_ADDR)**. Its format is typically `"0C:3D:5E:9D:80:99"` (composed of characters 0-9, A-F, with half-width colons). Keep this information properly recorded, as you will need to replace it with your actual controller's **Bluetooth Device Address (BD_ADDR)** in the code.
 
-- Power on the gamepad. After powering on, the gamepad automatically enters the Bluetooth discoverable **standby mode**, indicated by a **slow blinking LED (approximately once per second)**.
+#### Power on the controller and enter the ready-to-connect state
 
-### Install the CodexPad Frame Decoder Library
+- Power on the controller. After powering on, it will automatically be in a **ready-to-connect state** where Bluetooth is discoverable. At this time, the controller indicator light should **blink slowly (approximately once per second)**.
+
+### Installing the CodexPadFrameDecoder Library
 
 1. **Open the Arduino IDE Library Manager**
-   - Menu: **Tools** → **Manage Libraries...**
+
+   - Menu bar: **Tools** → **Manage Libraries...**
+
    - Shortcut: `Ctrl+Shift+I` (Windows/Linux) or `Cmd+Shift+I` (Mac)
 
-2. **Search and Install**
-   - Enter `CodexPadFrameDecoder` in the search box.
-   - Locate the CodexPadFrameDecoder library.
-   - **Make sure to select the latest version from the dropdown menu.**
-   - Click the **Install** button.
+2. **Search and install**
+
+   - Enter in the search box: `CodexPadFrameDecoder`
+
+   - Locate the CodexPadFrameDecoder library
+
+   - **Make sure to select the latest version from the dropdown**
+
+   - Click the **Install** button
 
     ![Search for CodexPadFrameDecoder in Library Manager](assets/images/en/install_codexpad_frame_decoder_library.png)
 
-    > **📌 Note:** The screenshot is for reference only. Please install the latest available version.
+    > **📌 Note:** The screenshot is for reference only. Please ensure you install the latest available version.
 
-## Examples
+## Example Descriptions
 
-Examples are organized by **functionality** and **Bluetooth module**: `examples/<functionality>/<bluetooth_module>/`.
+Examples are organized in two levels: **Bluetooth module** and **function**: `examples/<Bluetooth module>/<function>/`.
 
-Each functional example includes dedicated subdirectories for different Bluetooth modules. The `Connect()` function in these module-specific examples differs to ensure proper Bluetooth connection, while the parsing part uniformly uses the `CodexPadFrameDecoder` class from this library. You can choose the appropriate Bluetooth module example based on the module you are using.
+Each Bluetooth module directory contains functional examples supported by that module. The module-specific `Connect()` function implementations differ to ensure correct Bluetooth connection; the parsing part uniformly uses this library's `CodexPadFrameDecoder` class. You can choose the appropriate functional example based on the Bluetooth module you are using.
 
-### Hardware Wiring
+### Bluetooth Modules
 
-Before running the examples, select the appropriate wiring method based on your development board type.
+#### BLE-UNO Development Board
 
-#### Development Board with Integrated Bluetooth Transparent Transmission Module (e.g., BLE-UNO)
+The BLE-UNO development board has an integrated Bluetooth chip on-board, **no external Bluetooth transparent transmission module required**.
 
-These development boards are essentially equivalent to "Arduino UNO + an external Bluetooth transparent transmission module" where the main controller still communicates with the Bluetooth chip via serial, requiring **no additional wiring**. Taking BLE-UNO as an example, to view the program's debug output, it is recommended to connect a debug serial interface as follows:
+##### Available Examples
+
+###### Basic Polling Example (`basic_polling`)
+
+- **Description**: Connects to CodexPad via Bluetooth Device Address, polls, and prints all button states and joystick values in real time.
+
+- **Example location**: In Arduino IDE, find the example via **File** → **Examples** → **CodexPadFrameDecoder** → **ble_uno_or_nl_16_module** → **basic_polling**.
+
+###### Input State Detection Example (`inputs_detection`)
+
+- **Description**: Connects to CodexPad via Bluetooth Device Address, prints button states and joystick values only when they change.
+
+- **Example location**: In Arduino IDE, find the example via **File** → **Examples** → **CodexPadFrameDecoder** → **ble_uno_or_nl_16_module** → **inputs_detection**.
+
+##### Wiring Instructions
+
+To view the debug information output by the program, simply bring out the debug serial port.
 
 | BLE-UNO Pin | USB-to-TTL Module Pin |
-| :---------- | :-------------------- |
-| 5           | RXD                   |
-| 6           | TXD                   |
-| VCC         | 5V                    |
-| GND         | GND                   |
+| :----------- | :-------------- |
+| 5            | RXD             |
+| 6            | TXD             |
+| 3.3V         | 3V3             |
+| GND          | GND             |
 
-> **📌 Tip**: The pin numbers (5, 6) in the table above are the default configuration in the example code. If you have changed the debug serial pins in your code, please use the `kDebugSerialRxPin` and `kDebugSerialTxPin` constants defined in your code as the reference.
+> **📌 Tip**: The pin numbers (5, 6) in the table above are the default configurations in the example code. If you modify the debug serial pins in your code, please refer to your actual configuration (`kDebugSerialRxPin` and `kDebugSerialTxPin`).
 
-![Debug Serial Wiring Diagram](assets/images/en/wiring_ble_uno_debug.png)
+![Wiring diagram](assets/images/en/wiring_ble_uno_debug.png)
 
-#### Development Board with External Bluetooth Transparent Transmission Module (e.g., Arduino UNO + NL-16)
+#### NL-16 Bluetooth Transparent Transmission Module
 
-Suitable for standard Arduino boards without an integrated Bluetooth module, requiring an external Bluetooth transparent transmission module. When using NL-16, ensure the firmware is version 1.2 or higher.
+The NL-16 Bluetooth transparent transmission module needs to be used with a development board.
 
-The following is a typical wiring example (using Arduino UNO + NL-16):
+> Please use firmware version v1.2 for the NL-16 Bluetooth transparent transmission module to ensure compatibility with CodexPad controllers.
 
-**Bluetooth Module Wiring**
+##### Available Examples
 
-| NL-16 Pin   | Arduino UNO Pin |
-| :---------- | :-------------- |
-| +5V         | 5V              |
-| GND         | GND             |
-| TXD         | RX0             |
-| RXD         | TX0             |
-| STAT/D-RST  | RESET           |
+###### Basic Polling Example (`basic_polling`)
 
-> Note: Pin definitions may vary slightly for different Bluetooth modules. Please refer to the actual interface of your module.
+- **Description**: Connects to CodexPad via Bluetooth Device Address, polls, and prints all button states and joystick values in real time.
 
-**Debug Serial Wiring**
+- **Example location**: In Arduino IDE, find the example via **File** → **Examples** → **CodexPadFrameDecoder** → **ble_uno_or_nl_16_module** → **basic_polling**.
+
+###### Input State Detection Example (`inputs_detection`)
+
+- **Description**: Connects to CodexPad via Bluetooth Device Address, prints button states and joystick values only when they change.
+
+- **Example location**: In Arduino IDE, find the example via **File** → **Examples** → **CodexPadFrameDecoder** → **ble_uno_or_nl_16_module** → **inputs_detection**.
+
+##### Wiring Instructions
+
+The development board used is Arduino UNO as an example:
+
+**Arduino UNO to NL-16 Bluetooth Transparent Transmission Module Wiring**
+
+| Arduino UNO Pin | NL‑16 Pin |
+| :--------------- | :--------- |
+| 5V               | +5V        |
+| GND              | GND        |
+| RX0              | TXD        |
+| TX0              | RXD        |
+| RESET            | STAT/D-RST |
+
+**Arduino UNO to USB-to-TTL Module Wiring**
 
 | Arduino UNO Pin | USB-to-TTL Module Pin |
-| :-------------- | :-------------------- |
-| 5               | RXD                   |
-| 6               | TXD                   |
-| 3.3V            | VCC                   |
-| GND             | GND                   |
+| :--------------- | :-------------- |
+| 5                | RXD             |
+| 6                | TXD             |
+| 3.3V             | 3V3             |
+| GND              | GND             |
 
-![Bluetooth Module Wiring Diagram](assets/images/en/wireless_downloard.png)
-![Debug Serial Wiring Diagram](assets/images/en/wiring_uno_nl16.png)
+> **📌 Tip**: The pin numbers (5, 6) in the table above are the default configurations in the example code. If you modify the debug serial pins in your code, please refer to your actual configuration (`kDebugSerialRxPin` and `kDebugSerialTxPin`).
 
-### Basic Polling Example (`basic_polling`)
+![Bluetooth module wiring diagram](assets/images/en/wireless_downloard.png)
 
-- **Description**: Connects to the CodexPad via Bluetooth Device Address, continuously queries and prints all button states and joystick values.
-- **BLE-UNO / NL-16 Module Example Location**: In the Arduino IDE, go to **File** → **Examples** → **CodexPadFrameDecoder** → **basic_polling** → **ble_uno_or_nl_16_module** to find this example.
-
-### Input Detection Example (`inputs_detection`)
-
-- **Description**: Connects to the CodexPad via Bluetooth Device Address, detects button state and joystick value changes, and prints them upon change.
-- **BLE-UNO / NL-16 Module Example Location**: In the Arduino IDE, go to **File** → **Examples** → **CodexPadFrameDecoder** → **inputs_detection** → **ble_uno_or_nl_16_module** to find this example.
+![Overall wiring diagram](assets/images/en/wiring_uno_nl16.png)
 
 ### How to View Debug Information
 
-After running an example program, all gamepad button states and joystick values are output through the **debug serial port**. Because the default hardware serial port (D0/D1) is occupied by the Bluetooth module in the examples, you cannot view debug information through that port; you must use a debug serial port to see the output. Follow these steps:
+After the example program runs, debug information (such as button events, joystick values, etc.) is output through the **debug serial port**. Since the default hardware serial port (D0/D1) is occupied by the Bluetooth module, you cannot view debug information through that serial port. Therefore, you need to view the output through the debug serial port. Please follow these steps:
 
-1. Prepare a **USB-to-TTL module** and wire it according to the hardware wiring instructions: connect the TXD pin of the USB-to-TTL module to IO 6, and the RXD pin to IO 5.
-2. Plug the USB-to-TTL module into a USB port on your computer. The system will recognize a new serial port (COM port).
-3. Open any serial debugging tool.
-4. Select the serial port (COM port) corresponding to the USB-to-TTL module, and set the baud rate to **115200**, data bits 8, stop bits 1, parity None.
-5. Click "Open Serial Port" to view the debug information in real time.
+1. According to the wiring instructions above, connect the **USB-to-TTL module** to the corresponding debug serial pins (default pin numbers are 5, 6).
 
-> **📌 Tips**:
+2. Burn the example program to the development board.
+
+3. After burning is complete, power on the development board to run the program.
+
+4. Plug the USB-to-TTL module into a USB port on your computer. The system will recognize a new serial port (COM port).
+
+5. Open any serial debugging tool.
+
+6. Select the serial port (COM port) corresponding to the USB-to-TTL module, and set the baud rate to **115200**, data bits **8**, stop bits **1**, parity **None**.
+
+7. Click "Open Serial Port" to view the debug information in real time.
+
+![Serial debugging tool configuration](assets/images/en/view_debug_info.png)
+
+> **📌 Tip**:
 >
-> 1. The debug serial pin numbers (5/6) and baud rate (115200) above are the default values in the example code. If you have modified the debug serial pins or baud rate in your code, please refer to your actual configuration.
-> 2. Upon successful connection, you will first see the message `Connected` in the debug serial port. When you press a button or move a joystick on the gamepad, the corresponding status changes will be printed immediately, such as `Button Cross(A): pressed`, `L(X:128, Y:0)`, etc.
+> 1. The debug serial pin numbers (5/6) and baud rate (115200) above are the default values in the example code. If you modify the debug serial pins or baud rate in your code, please refer to your actual configuration.
+> 2. After successful connection, you will see a `Connected` prompt in the debug serial port. When you press a button or move a joystick on the controller, the corresponding state changes will be printed immediately, for example `Button Triangle(Y): pressed`, `L(X:128, Y:0)`, etc.
 
-## API Reference
+## API Documentation
 
-Detailed API documentation: <https://codexpad.github.io/codex_pad_frame_decoder_arduino_lib/html/en/annotated.html>
+Detail link: <https://codexpad.github.io/codex_pad_frame_decoder_arduino_lib/html/annotated.html>
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
