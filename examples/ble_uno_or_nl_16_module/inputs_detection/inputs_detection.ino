@@ -1,7 +1,7 @@
 /**
  * @~Chinese
- * @file inputs_detection/ble_uno_or_nl_16_module/ble_uno_or_nl_16_module.ino
- * @example inputs_detection/ble_uno_or_nl_16_module/ble_uno_or_nl_16_module.ino
+ * @file ble_uno_or_nl_16_module/inputs_detection/inputs_detection.ino
+ * @example ble_uno_or_nl_16_module/inputs_detection/inputs_detection.ino
  * @brief 演示如何检测已连接的 CodexPad 设备的实时按钮状态与摇杆移动。
  * @details 本示例先通过 AT 指令与指定的 CodexPad 设备建立蓝牙连接，然后持续监控所有用户输入。
  *          它展示了三种不同的按钮状态检测： **按下** (瞬间按下)、 **释放** (瞬间释放)和 **持续按住** 。
@@ -16,8 +16,8 @@
  */
 /**
  * @~English
- * @file inputs_detection/ble_uno_or_nl_16_module/ble_uno_or_nl_16_module.ino
- * @example inputs_detection/ble_uno_or_nl_16_module/ble_uno_or_nl_16_module.ino
+ * @file ble_uno_or_nl_16_module/inputs_detection/inputs_detection.ino
+ * @example ble_uno_or_nl_16_module/inputs_detection/inputs_detection.ino
  * @brief Demonstrate how to detect real-time button status and joystick movement of connected CodexPad devices.
  * @details This example first sends AT commands to establish a BLE connection to a CodexPad device (by Bluetooth Device Address), then continuously
  * monitors all user inputs. It showcases the detection of three distinct button states: **pressed** (momentary press), **released** (momentary
@@ -151,8 +151,8 @@ const String ButtonToString(CodexPadFrameDecoder::Button button) {
 /**
  * @~Chinese
  * @brief 向蓝牙模块发送 AT 指令以建立 BLE 连接。
- * @details 依次发送固定的 AT 指令序列（AT+DISCON, AT+RESET, AT+ECHO=1, AT+ROLE=0, AT+CON=<地址>），
- *          配置并连接到目标设备。
+ * @details 依次执行 AT 指令序列，将蓝牙模块配置为主机模式并连接到指定 MAC 地址的目标设备。
+ *          指令顺序：AT+DISCON → AT+RESET → AT+ECHO=0 → AT+ROLE=0 → AT+AUTOCON=0 → AT+CON=<mac>。
  * @param[in] bluetooth_stream 连接蓝牙模块的 Stream 对象。
  *                             注意：此对象必须与传入 CodexPadFrameDecoder 的 Stream 是同一个实例（如 Serial），
  *                             因为解码器正是从这同一个串口读取手柄发来的数据。
@@ -161,8 +161,9 @@ const String ButtonToString(CodexPadFrameDecoder::Button button) {
 /**
  * @~English
  * @brief Send AT commands to the Bluetooth module to establish a BLE connection.
- * @details Sends a fixed sequence of AT commands (AT+DISCON, AT+RESET, AT+ECHO=1, AT+ROLE=0, AT+CON=<address>)
- *          to configure and connect to the target device.
+ * @details Executes a sequence of AT commands to configure the Bluetooth module as master and connect to the target device
+ *          at the specified MAC address.
+ *          Command order: AT+DISCON → AT+RESET → AT+ECHO=0 → AT+ROLE=0 → AT+AUTOCON=0 → AT+CON=<mac>.
  * @param[in] bluetooth_stream Stream connected to the Bluetooth module.
  *                             Note: This must be the same Stream instance that is passed to the CodexPadFrameDecoder
  *                             (e.g., Serial), as the decoder reads incoming data from this same serial port.
@@ -178,8 +179,8 @@ void Connect(Stream &bluetooth_stream, const String &bluetooth_device_address) {
   g_debug_serial.print("Start to connect ");
   g_debug_serial.println(kBluetoothDeviceAddress);
 
-  // 断开任何已存在的蓝牙连接，确保进入清洁状态。
-  // Disconnect any existing BLE connection to ensure a clean state.
+  // 模块可能处于连接状态，先发送断开指令，确保模块是未连接状态。
+  // The module may be in a connected state. Send the disconnection command first to ensure the module is in an unconnected state.
   bluetooth_stream.println("AT+DISCON");
   delay(100);
 
@@ -188,14 +189,19 @@ void Connect(Stream &bluetooth_stream, const String &bluetooth_device_address) {
   bluetooth_stream.println("AT+RESET");
   delay(100);
 
-  // 打开AT信息显示。
-  // Open AT information display.
-  bluetooth_stream.println("AT+ECHO=1");
+  // 关闭AT信息回显。
+  // Close AT information echo.
+  bluetooth_stream.println("AT+ECHO=0");
   delay(100);
 
   // 设置模块为主机模式，使其能够主动连接从机蓝牙。
   // Set the module to host mode so that it can actively connect to the BLE of the slave device.
   bluetooth_stream.println("AT+ROLE=0");
+  delay(100);
+
+  // 关闭模块的蓝牙自动连接模式。
+  // Disable the module's automatic Bluetooth connection mode.
+  bluetooth_stream.println("AT+AUTOCON=0");
   delay(100);
 
   // 使用指定的MAC地址发起与从机蓝牙连接。
