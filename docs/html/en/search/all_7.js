@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['released_0',['released',['../class_codex_pad_frame_decoder.html#a9ab41a2fe35e1d85dc66175ec9f41574',1,'CodexPadFrameDecoder']]],
-  ['robust_5fframe_2eh_1',['robust_frame.h',['../robust__frame_8h.html',1,'']]]
+  ['parser_0',['Parser',['../classrobust__frame_1_1_parser.html',1,'robust_frame::Parser'],['../classrobust__frame_1_1_parser.html#aa60173a559377ca2ba6c0e91bee59138',1,'robust_frame::Parser::Parser()']]],
+  ['pressed_1',['pressed',['../class_codex_pad_frame_decoder.html#abb2868545bf09fa65d3e5a8f44a47f7f',1,'CodexPadFrameDecoder']]]
 ];

@@ -1,5 +1,5 @@
 var examples =
 [
-    [ "basic_polling/ble_uno_or_nl_16_module/ble_uno_or_nl_16_module.ino", "basic_polling_2ble_uno_or_nl_16_module_2ble_uno_or_nl_16_module_8ino-example.html", null ],
-    [ "inputs_detection/ble_uno_or_nl_16_module/ble_uno_or_nl_16_module.ino", "inputs_detection_2ble_uno_or_nl_16_module_2ble_uno_or_nl_16_module_8ino-example.html", null ]
+    [ "ble_uno_or_nl_16_module/basic_polling/basic_polling.ino", "ble_uno_or_nl_16_module_2basic_polling_2basic_polling_8ino-example.html", null ],
+    [ "ble_uno_or_nl_16_module/inputs_detection/inputs_detection.ino", "ble_uno_or_nl_16_module_2inputs_detection_2inputs_detection_8ino-example.html", null ]
 ];

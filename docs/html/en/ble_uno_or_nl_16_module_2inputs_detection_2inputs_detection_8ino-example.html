@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CodexPadFrameDecoder Arduino Lib: inputs_detection/ble_uno_or_nl_16_module/ble_uno_or_nl_16_module.ino</title>
+<title>CodexPadFrameDecoder Arduino Lib: ble_uno_or_nl_16_module/inputs_detection/inputs_detection.ino</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CodexPadFrameDecoder Arduino Lib<span id="projectnumber">&#160;1.0.0</span>
+   <div id="projectname">CodexPadFrameDecoder Arduino Lib<span id="projectnumber">&#160;1.0.3</span>
    </div>
   </td>
  </tr>
@@ -70,7 +70,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('inputs_detection_2ble_uno_or_nl_16_module_2ble_uno_or_nl_16_module_8ino-example.html',''); initResizable(true); });
+$(function(){initNavTree('ble_uno_or_nl_16_module_2inputs_detection_2inputs_detection_8ino-example.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,7 +96,7 @@ $(function(){initNavTree('inputs_detection_2ble_uno_or_nl_16_module_2ble_uno_or_
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">inputs_detection/ble_uno_or_nl_16_module/ble_uno_or_nl_16_module.ino</div></div>
+  <div class="headertitle"><div class="title">ble_uno_or_nl_16_module/inputs_detection/inputs_detection.ino</div></div>
 </div><!--header-->
 <div class="contents">
 <p>Demonstrate how to detect real-time button status and joystick movement of connected CodexPad devices.</p>
@@ -114,8 +114,8 @@ $(function(){initNavTree('inputs_detection_2ble_uno_or_nl_16_module_2ble_uno_or_
 <a class="el" href="class_codex_pad_frame_decoder.html#a5e1793a61157c927105c2d64638438a5" title="Get the raw value (0~255) of a specified joystick axis.">CodexPadFrameDecoder::axis_value</a></dd></dl>
 <div class="fragment"><div class="line"><span class="comment">/**</span></div>
 <div class="line"><span class="comment"> * @~Chinese</span></div>
-<div class="line"><span class="comment"> * @file inputs_detection/ble_uno_or_nl_16_module/ble_uno_or_nl_16_module.ino</span></div>
-<div class="line"><span class="comment"> * @example inputs_detection/ble_uno_or_nl_16_module/ble_uno_or_nl_16_module.ino</span></div>
+<div class="line"><span class="comment"> * @file ble_uno_or_nl_16_module/inputs_detection/inputs_detection.ino</span></div>
+<div class="line"><span class="comment"> * @example ble_uno_or_nl_16_module/inputs_detection/inputs_detection.ino</span></div>
 <div class="line"><span class="comment"> * @brief 演示如何检测已连接的 CodexPad 设备的实时按钮状态与摇杆移动。</span></div>
 <div class="line"><span class="comment"> * @details 本示例先通过 AT 指令与指定的 CodexPad 设备建立蓝牙连接，然后持续监控所有用户输入。</span></div>
 <div class="line"><span class="comment"> *          它展示了三种不同的按钮状态检测： **按下** (瞬间按下)、 **释放** (瞬间释放)和 **持续按住** 。</span></div>
@@ -130,8 +130,8 @@ $(function(){initNavTree('inputs_detection_2ble_uno_or_nl_16_module_2ble_uno_or_
 <div class="line"><span class="comment"> */</span><span class="comment"></span></div>
 <div class="line"><span class="comment">/**</span></div>
 <div class="line"><span class="comment"> * @~English</span></div>
-<div class="line"><span class="comment"> * @file inputs_detection/ble_uno_or_nl_16_module/ble_uno_or_nl_16_module.ino</span></div>
-<div class="line"><span class="comment"> * @example inputs_detection/ble_uno_or_nl_16_module/ble_uno_or_nl_16_module.ino</span></div>
+<div class="line"><span class="comment"> * @file ble_uno_or_nl_16_module/inputs_detection/inputs_detection.ino</span></div>
+<div class="line"><span class="comment"> * @example ble_uno_or_nl_16_module/inputs_detection/inputs_detection.ino</span></div>
 <div class="line"><span class="comment"> * @brief Demonstrate how to detect real-time button status and joystick movement of connected CodexPad devices.</span></div>
 <div class="line"><span class="comment"> * @details This example first sends AT commands to establish a BLE connection to a CodexPad device (by Bluetooth Device Address), then continuously</span></div>
 <div class="line"><span class="comment"> * monitors all user inputs. It showcases the detection of three distinct button states: **pressed** (momentary press), **released** (momentary</span></div>
@@ -265,8 +265,8 @@ $(function(){initNavTree('inputs_detection_2ble_uno_or_nl_16_module_2ble_uno_or_
 <div class="line"><span class="comment">/**</span></div>
 <div class="line"><span class="comment"> * @~Chinese</span></div>
 <div class="line"><span class="comment"> * @brief 向蓝牙模块发送 AT 指令以建立 BLE 连接。</span></div>
-<div class="line"><span class="comment"> * @details 依次发送固定的 AT 指令序列（AT+DISCON, AT+RESET, AT+ECHO=1, AT+ROLE=0, AT+CON=&lt;地址&gt;），</span></div>
-<div class="line"><span class="comment"> *          配置并连接到目标设备。</span></div>
+<div class="line"><span class="comment"> * @details 依次执行 AT 指令序列，将蓝牙模块配置为主机模式并连接到指定 MAC 地址的目标设备。</span></div>
+<div class="line"><span class="comment"> *          指令顺序：AT+DISCON → AT+RESET → AT+ECHO=0 → AT+ROLE=0 → AT+AUTOCON=0 → AT+CON=&lt;mac&gt;。</span></div>
 <div class="line"><span class="comment"> * @param[in] bluetooth_stream 连接蓝牙模块的 Stream 对象。</span></div>
 <div class="line"><span class="comment"> *                             注意：此对象必须与传入 CodexPadFrameDecoder 的 Stream 是同一个实例（如 Serial），</span></div>
 <div class="line"><span class="comment"> *                             因为解码器正是从这同一个串口读取手柄发来的数据。</span></div>
@@ -275,8 +275,9 @@ $(function(){initNavTree('inputs_detection_2ble_uno_or_nl_16_module_2ble_uno_or_
 <div class="line"><span class="comment">/**</span></div>
 <div class="line"><span class="comment"> * @~English</span></div>
 <div class="line"><span class="comment"> * @brief Send AT commands to the Bluetooth module to establish a BLE connection.</span></div>
-<div class="line"><span class="comment"> * @details Sends a fixed sequence of AT commands (AT+DISCON, AT+RESET, AT+ECHO=1, AT+ROLE=0, AT+CON=&lt;address&gt;)</span></div>
-<div class="line"><span class="comment"> *          to configure and connect to the target device.</span></div>
+<div class="line"><span class="comment"> * @details Executes a sequence of AT commands to configure the Bluetooth module as master and connect to the target device</span></div>
+<div class="line"><span class="comment"> *          at the specified MAC address.</span></div>
+<div class="line"><span class="comment"> *          Command order: AT+DISCON → AT+RESET → AT+ECHO=0 → AT+ROLE=0 → AT+AUTOCON=0 → AT+CON=&lt;mac&gt;.</span></div>
 <div class="line"><span class="comment"> * @param[in] bluetooth_stream Stream connected to the Bluetooth module.</span></div>
 <div class="line"><span class="comment"> *                             Note: This must be the same Stream instance that is passed to the CodexPadFrameDecoder</span></div>
 <div class="line"><span class="comment"> *                             (e.g., Serial), as the decoder reads incoming data from this same serial port.</span></div>
@@ -292,8 +293,8 @@ $(function(){initNavTree('inputs_detection_2ble_uno_or_nl_16_module_2ble_uno_or_
 <div class="line">  g_debug_serial.print(<span class="stringliteral">&quot;Start to connect &quot;</span>);</div>
 <div class="line">  g_debug_serial.println(kBluetoothDeviceAddress);</div>
 <div class="line"> </div>
-<div class="line">  <span class="comment">// 断开任何已存在的蓝牙连接，确保进入清洁状态。</span></div>
-<div class="line">  <span class="comment">// Disconnect any existing BLE connection to ensure a clean state.</span></div>
+<div class="line">  <span class="comment">// 模块可能处于连接状态，先发送断开指令，确保模块是未连接状态。</span></div>
+<div class="line">  <span class="comment">// The module may be in a connected state. Send the disconnection command first to ensure the module is in an unconnected state.</span></div>
 <div class="line">  bluetooth_stream.println(<span class="stringliteral">&quot;AT+DISCON&quot;</span>);</div>
 <div class="line">  delay(100);</div>
 <div class="line"> </div>
@@ -302,14 +303,19 @@ $(function(){initNavTree('inputs_detection_2ble_uno_or_nl_16_module_2ble_uno_or_
 <div class="line">  bluetooth_stream.println(<span class="stringliteral">&quot;AT+RESET&quot;</span>);</div>
 <div class="line">  delay(100);</div>
 <div class="line"> </div>
-<div class="line">  <span class="comment">// 打开AT信息显示。</span></div>
-<div class="line">  <span class="comment">// Open AT information display.</span></div>
-<div class="line">  bluetooth_stream.println(<span class="stringliteral">&quot;AT+ECHO=1&quot;</span>);</div>
+<div class="line">  <span class="comment">// 关闭AT信息回显。</span></div>
+<div class="line">  <span class="comment">// Close AT information echo.</span></div>
+<div class="line">  bluetooth_stream.println(<span class="stringliteral">&quot;AT+ECHO=0&quot;</span>);</div>
 <div class="line">  delay(100);</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// 设置模块为主机模式，使其能够主动连接从机蓝牙。</span></div>
 <div class="line">  <span class="comment">// Set the module to host mode so that it can actively connect to the BLE of the slave device.</span></div>
 <div class="line">  bluetooth_stream.println(<span class="stringliteral">&quot;AT+ROLE=0&quot;</span>);</div>
+<div class="line">  delay(100);</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// 关闭模块的蓝牙自动连接模式。</span></div>
+<div class="line">  <span class="comment">// Disable the module&#39;s automatic Bluetooth connection mode.</span></div>
+<div class="line">  bluetooth_stream.println(<span class="stringliteral">&quot;AT+AUTOCON=0&quot;</span>);</div>
 <div class="line">  delay(100);</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// 使用指定的MAC地址发起与从机蓝牙连接。</span></div>

@@ -37,4 +37,4 @@ var menudata={children:[
 {text:"文件列表",url:"files.html"}]},
 {text:"示例",url:"examples.html"},
 {text:"下载",url:"usergroup0.html",children:[
-{text:"CodexPadFrameDecoder_v1.0.0.zip: https://gh-proxy.com/https://github.com/CodexPad/codex_pad_frame_decoder_arduino_lib/archive/refs/tags/v1.0.0.zip",url:"^https://gh-proxy.com/https://github.com/CodexPad/codex_pad_frame_decoder_arduino_lib/archive/refs/tags/v1.0.0.zip"}]}]}
+{text:"CodexPadFrameDecoder_v1.0.3.zip: https://gh-proxy.com/https://github.com/CodexPad/codex_pad_frame_decoder_arduino_lib/archive/refs/tags/v1.0.3.zip",url:"^https://gh-proxy.com/https://github.com/CodexPad/codex_pad_frame_decoder_arduino_lib/archive/refs/tags/v1.0.3.zip"}]}]}

@@ -41,7 +41,7 @@ var NAVTREE =
     ] ],
     [ "Examples", "examples.html", "examples" ],
     [ "Downloads", "usergroup0.html", [
-      [ "CodexPadFrameDecoder_v1.0.0.zip: https://github.com/CodexPad/codex_pad_frame_decoder_arduino_lib/archive/refs/tags/v1.0.0.zip", "^https://github.com/CodexPad/codex_pad_frame_decoder_arduino_lib/archive/refs/tags/v1.0.0.zip", null ]
+      [ "CodexPadFrameDecoder_v1.0.3.zip: https://github.com/CodexPad/codex_pad_frame_decoder_arduino_lib/archive/refs/tags/v1.0.3.zip", "^https://github.com/CodexPad/codex_pad_frame_decoder_arduino_lib/archive/refs/tags/v1.0.3.zip", null ]
     ] ]
   ] ]
 ];

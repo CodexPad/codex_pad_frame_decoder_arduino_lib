@@ -213,7 +213,7 @@ After the example program runs, debug information (such as button events, joysti
 
 ## API Documentation
 
-Detail link: <https://codexpad.github.io/codex_pad_frame_decoder_arduino_lib/html/annotated.html>
+Detail link: <https://codexpad.github.io/codex_pad_frame_decoder_arduino_lib/html/en/annotated.html>
 
 ## License
 
