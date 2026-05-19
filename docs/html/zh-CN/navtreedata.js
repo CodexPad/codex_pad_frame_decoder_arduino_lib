@@ -41,7 +41,7 @@ var NAVTREE =
     ] ],
     [ "示例", "examples.html", "examples" ],
     [ "下载", "usergroup0.html", [
-      [ "CodexPadFrameDecoder_v1.0.0.zip: https://gh-proxy.com/https://github.com/CodexPad/codex_pad_frame_decoder_arduino_lib/archive/refs/tags/v1.0.0.zip", "^https://gh-proxy.com/https://github.com/CodexPad/codex_pad_frame_decoder_arduino_lib/archive/refs/tags/v1.0.0.zip", null ]
+      [ "CodexPadFrameDecoder_v1.0.3.zip: https://gh-proxy.com/https://github.com/CodexPad/codex_pad_frame_decoder_arduino_lib/archive/refs/tags/v1.0.3.zip", "^https://gh-proxy.com/https://github.com/CodexPad/codex_pad_frame_decoder_arduino_lib/archive/refs/tags/v1.0.3.zip", null ]
     ] ]
   ] ]
 ];

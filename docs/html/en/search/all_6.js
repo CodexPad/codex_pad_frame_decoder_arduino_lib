@@ -1,5 +1,30 @@
 var searchData=
 [
-  ['parser_0',['Parser',['../classrobust__frame_1_1_parser.html',1,'robust_frame::Parser'],['../classrobust__frame_1_1_parser.html#aa60173a559377ca2ba6c0e91bee59138',1,'robust_frame::Parser::Parser()']]],
-  ['pressed_1',['pressed',['../class_codex_pad_frame_decoder.html#abb2868545bf09fa65d3e5a8f44a47f7f',1,'CodexPadFrameDecoder']]]
+  ['kaxiscenter_0',['kAxisCenter',['../class_codex_pad_frame_decoder.html#a78a6a62562c35e4b08c1cbb82cc5e71b',1,'CodexPadFrameDecoder']]],
+  ['kaxisvaluenum_1',['kAxisValueNum',['../class_codex_pad_frame_decoder.html#a7236ca22cd91f5362586a9d8bc637602',1,'CodexPadFrameDecoder']]],
+  ['kcircleb_2',['kCircleB',['../class_codex_pad_frame_decoder.html#ac2c4d6e03408b3531cb115cb3a88b6cdacd94ac9592692bc9a94a98cf549bbf48',1,'CodexPadFrameDecoder']]],
+  ['kcrossa_3',['kCrossA',['../class_codex_pad_frame_decoder.html#ac2c4d6e03408b3531cb115cb3a88b6cda242412f236cd429121026df493e07a25',1,'CodexPadFrameDecoder']]],
+  ['kdown_4',['kDown',['../class_codex_pad_frame_decoder.html#ac2c4d6e03408b3531cb115cb3a88b6cda3bc2ec3237c6d119b0b5c4225122a07e',1,'CodexPadFrameDecoder']]],
+  ['khome_5',['kHome',['../class_codex_pad_frame_decoder.html#ac2c4d6e03408b3531cb115cb3a88b6cda34c76ad4cd38f56b6c8ef7dbd79376e2',1,'CodexPadFrameDecoder']]],
+  ['kl1_6',['kL1',['../class_codex_pad_frame_decoder.html#ac2c4d6e03408b3531cb115cb3a88b6cda17dfd658b280414d471dea3e8bf4a510',1,'CodexPadFrameDecoder']]],
+  ['kl2_7',['kL2',['../class_codex_pad_frame_decoder.html#ac2c4d6e03408b3531cb115cb3a88b6cda156fe1d78bb72d3412ac145bd941879a',1,'CodexPadFrameDecoder']]],
+  ['kl3_8',['kL3',['../class_codex_pad_frame_decoder.html#ac2c4d6e03408b3531cb115cb3a88b6cda3b5c23249a4affa2c7364d1e3b1526e3',1,'CodexPadFrameDecoder']]],
+  ['kleft_9',['kLeft',['../class_codex_pad_frame_decoder.html#ac2c4d6e03408b3531cb115cb3a88b6cda2d5fde1d924910a2a01ecd8e70a87c28',1,'CodexPadFrameDecoder']]],
+  ['kleftstickx_10',['kLeftStickX',['../class_codex_pad_frame_decoder.html#aeb45228635b41a6f4f9c4016ae8957a3a604866afe54eddb18859ee5657f7a29a',1,'CodexPadFrameDecoder']]],
+  ['kleftsticky_11',['kLeftStickY',['../class_codex_pad_frame_decoder.html#aeb45228635b41a6f4f9c4016ae8957a3a751d793756612664c990e0ea6ae48880',1,'CodexPadFrameDecoder']]],
+  ['kpayloadtype_12',['kPayloadType',['../class_codex_pad_frame_decoder.html#a94e9e5396c08f1ebb1c9b21d73eb26ea',1,'CodexPadFrameDecoder']]],
+  ['kr1_13',['kR1',['../class_codex_pad_frame_decoder.html#ac2c4d6e03408b3531cb115cb3a88b6cdad7789ca4b871d5ecec2849d713364fa4',1,'CodexPadFrameDecoder']]],
+  ['kr2_14',['kR2',['../class_codex_pad_frame_decoder.html#ac2c4d6e03408b3531cb115cb3a88b6cda86fba42a90b505b3eb3313111d35af9d',1,'CodexPadFrameDecoder']]],
+  ['kr3_15',['kR3',['../class_codex_pad_frame_decoder.html#ac2c4d6e03408b3531cb115cb3a88b6cda66fb91bc349a0f95477af0a93627040f',1,'CodexPadFrameDecoder']]],
+  ['kright_16',['kRight',['../class_codex_pad_frame_decoder.html#ac2c4d6e03408b3531cb115cb3a88b6cda2dd2b017192f8a09367d48c7648213c9',1,'CodexPadFrameDecoder']]],
+  ['krightstickx_17',['kRightStickX',['../class_codex_pad_frame_decoder.html#aeb45228635b41a6f4f9c4016ae8957a3a968cad1db699f941ff463a0d122c3e99',1,'CodexPadFrameDecoder']]],
+  ['krightsticky_18',['kRightStickY',['../class_codex_pad_frame_decoder.html#aeb45228635b41a6f4f9c4016ae8957a3a6bceb15acc0b7470c5a1483eb39129a6',1,'CodexPadFrameDecoder']]],
+  ['kselect_19',['kSelect',['../class_codex_pad_frame_decoder.html#ac2c4d6e03408b3531cb115cb3a88b6cda0f74d4695fd4cccbe4380a5fcf6f8cc0',1,'CodexPadFrameDecoder']]],
+  ['ksquarex_20',['kSquareX',['../class_codex_pad_frame_decoder.html#ac2c4d6e03408b3531cb115cb3a88b6cda41720e053591676510d11366e19a376b',1,'CodexPadFrameDecoder']]],
+  ['kstart_21',['kStart',['../class_codex_pad_frame_decoder.html#ac2c4d6e03408b3531cb115cb3a88b6cda127f8e8149d57253ad94c9d2c752113d',1,'CodexPadFrameDecoder']]],
+  ['ktriangley_22',['kTriangleY',['../class_codex_pad_frame_decoder.html#ac2c4d6e03408b3531cb115cb3a88b6cdaec0bab670b27a73eaf00792487320837',1,'CodexPadFrameDecoder']]],
+  ['kup_23',['kUp',['../class_codex_pad_frame_decoder.html#ac2c4d6e03408b3531cb115cb3a88b6cda8a9e8c8811f2a710615e133456229ee5',1,'CodexPadFrameDecoder']]],
+  ['kversionmajor_24',['kVersionMajor',['../codex__pad__frame__decoder__lib_8h.html#a8e69e3dc5162603e4cd20053568c1a27',1,'codex_pad_frame_decoder_lib']]],
+  ['kversionminor_25',['kVersionMinor',['../codex__pad__frame__decoder__lib_8h.html#aabbd945bbec040e5a6ef3af244eb0654',1,'codex_pad_frame_decoder_lib']]],
+  ['kversionpatch_26',['kVersionPatch',['../codex__pad__frame__decoder__lib_8h.html#a7e4eba7de0edf1d65d948653303bf086',1,'codex_pad_frame_decoder_lib']]]
 ];
